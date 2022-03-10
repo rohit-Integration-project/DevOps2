@@ -1,0 +1,24 @@
+- hosts: aws
+  tasks:
+  - name: Download docker repo to configure yum in docker container
+    get_url:
+      url: https://download.docker.com/linux/centos/docker-ce.repo
+      dest: "/etc/yum.repos.d/"
+  - name: install docker-ce software
+    package:
+      name: "docker-ce"
+      state: present
+  - name: start the docker server
+    service:
+      name: "docker"
+      state: started
+  - name: I need pip3 command install respective module in python
+    package:
+      name: "python3.8-pip"
+      state: present
+  - name: Install docker.py in python 
+    pip:
+      name: "docker.py"
+  - name: Install docker image
+    docker_image:
+      name: centos
